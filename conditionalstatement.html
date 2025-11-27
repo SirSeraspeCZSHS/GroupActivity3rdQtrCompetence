@@ -20,7 +20,7 @@
         <h2>Example 1 — Age Checker (if / else)</h2>
         <p>Enter your age and click <strong>Check Age</strong>. The script uses an <code>if</code> / <code>else</code> statement to decide whether the person is an adult.</p>
         <label for="ageInput">Age:</label>
-        <input id="ageInput" type="number" min="0" placeholder="Enter age" />
+        <input id="ageInput" type="number" min="0" max="100" placeholder="Please enter Age here" />
         <button id="checkAgeBtn">Check Age</button>
         <p class="result" id="ageResult" aria-live="polite"></p>
     </section>
@@ -35,6 +35,34 @@
         <p class="result" id="tempResult" aria-live="polite"></p>
     </section>
 
+        <!-- Example 3: Temperature Advice (if / else if / else) -->
+    <section class="example">
+        <h2>Example 3 — Guess a number (if / else if / else)</h2>
+        <p>Guess the random number between 1 to 10</p>
+        <label for="userNum">User Number:</label>
+        <input id="userNum" type="number" min="1" max="10" placeholder="Place you Guess here" />
+        <button id="guessBtn">Get Advice</button>
+        <p class="result" id="guessResult" aria-live="polite"></p>
+    </section>
+
+    <!-- Example 4: Temperature Advice (if / else if / else) -->
+    <section class="example">
+        <h2>Example 4 — Guess a Car</h2>
+        <p>Guess the car</p>
+            <label for="cars">Choose a car:</label>
+
+            <select name="cars" id="cars" placeholder="Choose here!">
+                <option value="" disabled selected>Select your option</option>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+
+        <button id="guessCar">Guess the Car</button>
+        <p class="result" id="guessResult" aria-live="polite"></p>
+    </section>
+    
     <script>
         // Example 1: if / else
         const ageInput = document.getElementById('ageInput');
@@ -85,6 +113,66 @@
             } else {
                 tempResult.textContent = 'Hot — stay hydrated and stay in the shade.';
                 tempResult.style.color = 'orange';
+            }
+        });
+
+
+        // Example 3: Guess a number (if / else if / else)
+        const userNumInput = document.getElementById('userNum');
+        const guessBtn = document.getElementById('guessBtn');
+        const guessResult = document.getElementById('guessResult');
+
+        guessBtn.addEventListener('click', () => {
+            const userNum = Number(userNumInput.value);
+            if (isNaN(userNum) || userNum < 1 || userNum > 10) {
+                guessResult.textContent = 'Please enter a valid number between 1 and 10.';
+                guessResult.style.color = 'crimson';
+                return;
+            }
+
+            const randomNum = Math.floor(Math.random() * 10) + 1;
+
+            // if / else if / else chain to check the guessed number
+            if (userNum === randomNum) {
+                guessResult.textContent = `Congratulations! You guessed it right. The number was ${randomNum}.`;
+                guessResult.style.color = 'green';
+            } else if (userNum < randomNum) {
+                guessResult.textContent = `Too low! The correct number was ${randomNum}.`;
+                guessResult.style.color = 'blue';
+            } else {
+                guessResult.textContent = `Too high! The correct number was ${randomNum}.`;
+                guessResult.style.color = 'orange';
+            }
+        });
+
+        // Example 4: Car Selection (if / else if / else)
+        const carSelect = document.getElementById('cars');
+        const carBtn = document.getElementById('guessCar');
+        const carResult = document.getElementById('guessResult');
+
+        carBtn.addEventListener('click', () => {
+            window.alert("test button works");
+            const selectedCar = carSelect.value;
+            switch (selectedCar) {
+                case 'volvo':
+                    carResult.textContent = 'You selected Volvo, known for safety and reliability.';
+                    carResult.style.color = 'blue';
+                    break;
+                case 'saab':
+                    carResult.textContent = 'You selected Saab, known for its innovative design.';
+                    carResult.style.color = 'green';
+                    break;
+                case 'mercedes':
+                    carResult.textContent = 'You selected Mercedes, a symbol of luxury and performance.';
+                    carResult.style.color = 'silver';
+                    break;
+                case 'audi':
+                    carResult.textContent = 'You selected Audi, famous for its sleek design and technology.';
+                    carResult.style.color = 'black';
+                    break;
+                default:
+                    carResult.textContent = 'Please select a car from the dropdown.';
+                    carResult.style.color = 'crimson';
             }
         });
     </script>
