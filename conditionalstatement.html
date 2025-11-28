@@ -39,18 +39,41 @@
     <section class="example">
         <h2>Example 3 — Guess a number (if / else if / else)</h2>
         <p>Guess the random number between 1 to 10</p>
-        <label for="userNum">User Number:</label>
-        <input id="userNum" type="number" min="1" max="10" placeholder="Place you Guess here" />
-        <button id="guessBtn">Get Advice</button>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <div style="display: flex; flex-direction: column;">
+                <label for="level">Level if Difficulty</label>
+                <select name="level" id="level" placeholder="Choose here!">
+                    <option value="" disabled selected>Select your level</option>
+                    <option value="easy">Easy</option>
+                    <option value="normal">Normal</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+            <div style="display: flex; flex-direction: column;">
+                <label for="userNum">User Number:</label>
+                <input id="userNum" type="number" min="1" max="10" placeholder="Place your Guess here" />
+            </div>
+            <div style="display: flex; flex-direction: column;">
+                <label for="BAmount">Bet Amount</label>
+                <input id="BAmount" type="number" min="1" placeholder="Place your bet here" />
+            </div>
+            <div style="display: flex; flex-direction: column;">
+                <label for="userMoney">Players Money</label>
+                <p class="Pmoney" id="Pmoney" aria-live="polite"></p>
+            </div>
+        </div>
+            <div>
+                <button id="guessBtn">Guess Number</button>
+            </div>
+
         <p class="result" id="guessResult" aria-live="polite"></p>
     </section>
 
     <!-- Example 4: Temperature Advice (if / else if / else) -->
-    <section class="example">
+    <!-- <section class="example">
         <h2>Example 4 — Guess a Car</h2>
         <p>Guess the car</p>
             <label for="cars">Choose a car:</label>
-
             <select name="cars" id="cars" placeholder="Choose here!">
                 <option value="" disabled selected>Select your option</option>
                 <option value="volvo">Volvo</option>
@@ -61,7 +84,7 @@
 
         <button id="guessCar">Guess the Car</button>
         <p class="result" id="guessResult" aria-live="polite"></p>
-    </section>
+    </section> -->
     
     <script>
         // Example 1: if / else
@@ -117,31 +140,71 @@
         });
 
 
-        // Example 3: Guess a number (if / else if / else)
+        // Example 3: Guess a number (if / else if / else/switch)
         const userNumInput = document.getElementById('userNum');
         const guessBtn = document.getElementById('guessBtn');
         const guessResult = document.getElementById('guessResult');
+        const levelSelect = document.getElementById('level');
+        const Pmoney = document.getElementById('Pmoney');
+        let maxNumber;
+        const minNumber = 1;
+        let playerMoney = 100;
+        Pmoney.textContent = `Money: ${playerMoney} Pesos`;
+        const BAmount = document.getElementById('BAmount');
+        BAmount.setAttribute('max', playerMoney);
 
         guessBtn.addEventListener('click', () => {
             const userNum = Number(userNumInput.value);
-            if (isNaN(userNum) || userNum < 1 || userNum > 10) {
-                guessResult.textContent = 'Please enter a valid number between 1 and 10.';
+            const betAmount = Number(BAmount.value);
+            if (isNaN(userNum) || userNum < minNumber || userNum > maxNumber) {
+                guessResult.textContent = 'Please enter a valid bet between 1 and 10.';
+                guessResult.style.color = 'crimson';
+                return;
+            }            
+            if (playerMoney <= 0 ) {
+                guessResult.textContent = `You have no more money to bet. Game over!`;
+                guessResult.style.color = 'crimson';
+                return;
+            }
+            if (betAmount > playerMoney || betAmount <= 0 || isNaN(betAmount)) {
+                guessResult.textContent = `Please enter a valid number between 1 and ${playerMoney} Pesos`;
                 guessResult.style.color = 'crimson';
                 return;
             }
 
-            const randomNum = Math.floor(Math.random() * 10) + 1;
+            switch (levelSelect.value) {
+                case 'easy':
+                    maxNumber = 5;
+                    break;
+                case 'normal':
+                    maxNumber = 10;
+                    break;
+                case 'hard':
+                    maxNumber = 15;
+                    break;
+                default:
+                    guessResult.textContent = 'Please select a difficulty level.';
+                    guessResult.style.color = 'crimson';
+                    return;
+            }
+            const randomNum = Math.floor(Math.random() * maxNumber) + minNumber;
 
             // if / else if / else chain to check the guessed number
             if (userNum === randomNum) {
                 guessResult.textContent = `Congratulations! You guessed it right. The number was ${randomNum}.`;
                 guessResult.style.color = 'green';
+                playerMoney += betAmount;
+                Pmoney.textContent = `Money: ${playerMoney} Pesos`;
             } else if (userNum < randomNum) {
                 guessResult.textContent = `Too low! The correct number was ${randomNum}.`;
                 guessResult.style.color = 'blue';
+                playerMoney -= betAmount;
+                Pmoney.textContent = `Money: ${playerMoney} Pesos`;
             } else {
                 guessResult.textContent = `Too high! The correct number was ${randomNum}.`;
                 guessResult.style.color = 'orange';
+                playerMoney -= betAmount;
+                Pmoney.textContent = `Money: ${playerMoney} Pesos`;
             }
         });
 
