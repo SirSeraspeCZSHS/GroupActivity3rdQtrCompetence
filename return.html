@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Value</title>
+</head>
+<body>
+    <h3>BMI</h3>
+        <div style="display: flex; flex-direction: column;">
+        <label for="h">Height</label>
+        <input id="h" type="number" min="1" max="10" placeholder="Place your Height here" />
+    </div>
+            <div style="display: flex; flex-direction: column;">
+                <label for="w">Weight</label>
+                <input id="w" type="number" min="1" placeholder="Place your Weight here" />
+            </div>
+    <div>
+        <button id="compute">Compute BMI</button>
+        <label for="w">Your BMI</label>
+        <input id="output" type="number" placeholder="BMI will apper here" />
+    </div>
+    <script>
+        const h = document.getElementById('h');
+        const w = document.getElementById('w');
+        const bmi = document.getElementById('output');
+
+        function BMI(height, weight){
+            return weight / (height * height);
+        }
+
+        document.getElementById('compute').addEventListener('click', function(){
+            const height = parseFloat(h.value);
+            const weight = parseFloat(w.value);
+            const result = BMI(height, weight);
+            bmi.value = result.toFixed(2);
+        });
+
+
+    </script>
+</body>
+</html>

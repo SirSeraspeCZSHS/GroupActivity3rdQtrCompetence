@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String</title>
+</head>
+<body>
+    <label for="num1">First Number</label>
+    <input id="num1" type="number" placeholder="Enter number here!" />
+    <label for="num2">Second Number</label>
+    <input id="num2" type="number" placeholder="Enter number here!" />
+
+    <button id="add">Add numbers</button>
+    <p id="result"></p>
+
+    <button id="add">See Enrollment</button>
+    <h4 id="ict"></h4>
+    <p id="competence"></p>
+
+
+    <script>
+        const add1 = document.getElementById
+        ("num1");
+        const add2 = document.getElementById
+        ("num2");
+        const addName = document.getElementById
+        ("add");
+        const insert = document.getElementById
+        ("result");
+
+        addName.addEventListener("click", ()  =>{
+            const addends1 = Number(add1.value);
+            const addends2 = Number(add2.value);
+            insert.textContent = `The answer is 
+                ${addends1 + addends2}!`;
+        });
+
+
+        let header = "Competence";
+        let tags = ["Guardain", "Geolina", "Nazol"];
+
+        let html = `<h2>${header}</h2><ul>`;
+
+        for (const x of tags) {
+        html += `<li>${x}</li>`;
+        }
+
+        html += `</ul>`;
+        document.getElementById("competence")
+        .innerHTML = html;
+
+        // // Length of the string
+        // console.log("Length: " + str.length);
+
+        // // Convert to uppercase
+        // let upperStr = str.toUpperCase();
+        // console.log("Uppercase: " + upperStr);
+
+        // // Convert to lowercase
+        // let lowerStr = str.toLowerCase();
+        // console.log("Lowercase: " + lowerStr);
+
+        // // Substring
+        // let subStr = str.substring(0, 5);
+        // console.log("Substring (0-5): " + subStr);
+
+        // // Replace
+        // let replacedStr = str.replace("World", "JavaScript");
+        // console.log("Replaced String: " + replacedStr);
+
+        // // Split
+        // let strArray = str.split(", ");
+        // console.log("Split String: ", strArray);
+    </script>
+</body>
+</html>
