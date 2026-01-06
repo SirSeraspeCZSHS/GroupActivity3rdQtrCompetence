@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+
+function hero(health, mana, stamina){
+    this.health = 100;
+    this.mana = 50;
+    this.stamina = 75;
+}
+
+function weapon(damage, durability){
+    this.damage = 25;
+    this.durability = 100;
+}
+console.log("Creation of Heroes");
+const lapulapu = new hero();
+const pacito = new hero();
+console.log("Lapulapu:", lapulapu);
+console.log("Pacito:", pacito);
+console.log("Updating Hero Properties");
+lapulapu.health = 50;
+pacito.health = 10;
+console.log("Lapulapu's health:", lapulapu.health);
+console.log("Pacito's health:", pacito.health);
+console.log("Create new Properties for Heroes");
+lapulapu.armor = 15;
+console.log("Lapulapu's armor:", lapulapu.armor);
+pacito.range = 5;
+console.log("Pacito's range:", pacito.range);
+console.log("Deleting Hero Properties");
+delete lapulapu.stamina;
+console.log("Lapulapu after deleting stamina:", lapulapu);
+console.log("Creation Nested Objects");
+const espada = new weapon();
+const bow = new weapon();
+console.log("Adding Weapons to Heroes");
+lapulapu.weapon = espada;
+pacito.weapon = bow;
+lapulapu.weapon.damage = 40;
+pacito.weapon.damage = 10;
+console.log("Lapulapu's weapon:", lapulapu.weapon);
+console.log("Pacito's weapon:", pacito.weapon);
+
+
+
+</script>
+</body>
+</html>
